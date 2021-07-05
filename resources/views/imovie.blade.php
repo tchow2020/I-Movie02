@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
     {{-- EXEMPLO --}}
     {{-- <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}"> --}}
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
   </head>
      
   <body>
@@ -15,62 +17,34 @@
     @include('Layout.Menu')
 
     <div class="Aba-Menu">
+      <div>
+        <a class="add-button" href="{{route('adicionarFilme')}}">
+          <i class="fas fa-plus"></i> Adicionar filme
+        </a>
+      </div>
+      @if(session('success'))
+        <div class="alert alert-success">
+          {{ session('success') }}
+        </div>
+      @endif
+      @if(session('error'))
+        <div class="alert alert-error">
+          {{ session('error') }}
+        </div>
+      @endif
      <div class="Post-Menu">
-       <a href="">
-        <img class="Post-Coringa" src="{{asset('assets/img/Menu-Post/Coringa-Post.jpg')}}" width="168" height="300">
-       </a>
-
-       <a href="">
-        <img class="Hobbs-Shaw" src="{{asset('assets\img\Menu-Post\Hobbs-Shaw-Post.jpg')}}" width="168" height="300">
-       </a>
-      
-       <a href="">
-        <img class="Jumanji" src="{{asset('assets\img\Menu-Post\Jumanji-Post.jpg')}}" width="168" height="300">
-       </a>
-  
-       <a href="">
-        <img class="Parasita" src="{{asset('assets\img\Menu-Post\Parasita-Post.jpg')}}" width="168" height="300">
-       </a>
-
-       <a href="">
-        <img class="Rei-leão" src="{{asset('assets\img\Menu-Post\Rei leão-Post.jpg')}}" width="168" height="300">
-       </a>
-       
-       <a href="">
-        <img class="Sonic" src="{{asset('assets\img\Menu-Post\Sonic-Post.jpg')}}" width="168" height="300">
-       </a>
-
-       <a href="">
-        <img class="Star-Wars" src="{{asset('assets\img\Menu-Post\Star Wars-Episódio III.jpg')}}" width="168" height="300">
-       </a>
-
-       <a href="">
-        <img class="Zumbilândia" src="{{asset('assets\img\Menu-Post\Zumbilândia-Post.jpg')}}" width="168" height="300">
-       </a>
-
-       <a href="">
-        <img class="Jogo" src="{{asset('assets\img\Menu-Post\Jogo das imitações.jpg')}}" width="168" height="300">
-       </a>
-
-       <a href="">
-        <img class="Nós" src="{{asset('assets\img\Menu-Post\Nós.jpg')}}" width="168" height="300">
-       </a>
-
-       <a href="">
-        <img class="Lawrence" src="{{asset('assets\img\Menu-Post\Lawrence nas Arabias.jpg')}}" width="168" height="300">
-       </a>
-
-       <a href="">
-        <img class="Corra" src="{{asset('assets\img\Menu-Post\Corra.jpg')}}" width="168" height="300">
-       </a>
-
-       <a href="">
-        <img class="Truque" src="{{asset('assets\img\Menu-Post\O grande truque.jpg')}}" width="168" height="300">
-       </a>
-
-       <a href="">
-        <img class="Cervo" src="{{asset('assets\img\Menu-Post\Sacrifício do cervo sagrado.jpg')}}" width="168" height="300">
-       </a>
+       <div class="movie-area">
+          @foreach($movies as $key => $movie)
+            <a href="{{route('movies.ver', ['titulo' => $movie->titulo])}}">
+              <img class="Post-Filme" src="{{$movie->img_url}}">
+            </a>
+          @endforeach
+        </div>
+        @if ($movies->count() <= 0)
+          <div class="no-movie">
+            <span>Não existe filmes no momento</span>
+          </div>
+        @endif
      </div>
 
     </div>
@@ -88,99 +62,46 @@
        margin: 2px;
      }
 
-
-     .Post-Coringa{
+     .Post-Filme{
        padding: 2px;
        margin: 2px;
        text-decoration: none;
-     }
-   
-    .Hobbs-Shaw{
-      padding: 2px;
-      margin: 2px;
-      text-decoration: none;
-    }  
-   
-    .Jumanji{
-      padding: 2px;
-      margin: 2px;
-      text-decoration: none;
+       opacity: 1;
+       height: 274px;
+       width: 168px;
+       transition: 0.2s;
+     } 
+       
+    .Post-Filme:hover{
+      opacity: 0.6;  
+      
     }
 
-    .Parasita{
-      padding: 2px;
-      margin: 2px;
+    .add-button {
+      color: #f9f9f9;
+      font-size: 16px;
+      font-family: Arial;
       text-decoration: none;
+      transition: .2s;
+    }
+    .add-button:hover {
+      opacity: .8;
     }
 
-    .Rei-leão{
-      padding: 2px;
-      margin: 2px;
-      text-decoration: none;
+    .no-movie {
+      margin-top: 60px;
     }
-    
-    .Sonic{
-      padding: 2px;
-      margin: 2px;
-      text-decoration: none;
-    }
-    
-    .Star-Wars{
-      padding: 2px;
-      margin:2px;
-      text-decoration: none;
+    .no-movie span{
+      color: #f9f9f9;
+      font-family: Arial;
     }
 
-    .Zumbilândia{
-      padding: 2px;
-      margin: 2px;
-      text-decoration: none;
-    }
-
-    .Jogo{
-      padding: 2px;
-      margin: 2px;
-      text-decoration: none;
-    }
-
-    .Nós{
-      padding: 2px;
-      margin: 2px;
-      text-decoration: none;
-    }
-
-    .Lawrence{
-      padding: 2px;
-      margin: 2px;
-      text-decoration: none;
-    }
-
-    .Corra{
-      padding: 2px;
-      margin: 2px;
-      text-decoration: none;
-    }
-
-    .Truque{
-      padding: 2px;
-      margin: 2px;
-      text-decoration: none;
-    }
-
-    .Cervo{
-      padding: 2px;
-      margin: 2px;
-      text-decoration: none;
+    .movie-area {
+      position: relative;
     }
   </style>
-   <center>
+   
    
 
 </body>
-   
-   
-     
-      
-    
-    
 </html>
