@@ -22,6 +22,7 @@
           <i class="fas fa-plus"></i> Adicionar filme
         </a>
       </div>
+      
       @if(session('success'))
         <div class="alert alert-success">
           {{ session('success') }}
